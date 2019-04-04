@@ -1,5 +1,6 @@
 #include "../header/matriz.h"
 
+//FUNÇÃO PRINCIPAL ONDE TODAS AS FUNÇÕES SÃO CHAMADAS DENTRO DA FUNÇÃO MENU//
 void LerMa() {
     FILE *arqMA;
     FILE *arqMB;
@@ -56,8 +57,8 @@ void LerMa() {
           
 }
 
-//FUNÇÃO MENU RECEBE LINHAS A/COLUNAS DE A, LINHAS DE B/COLUNAS DE B
-//E AS MATRIZES A E B PARA SEREM PROCESSADAS NAS OUTRAS FUNÇÕES//
+//FUNÇÃO MENU RECEBE LINHAS A/COLUNAS DE A, LINHAS DE B/COLUNAS DE B E AS MATRIZES A E B PARA SEREM PROCESSADAS NAS OUTRAS FUNÇÕES//
+//PARAMETROS ADQUIRIDOS NA FUNÇÃO LerMa//
 void menu(int n, int m, int p, int q, float *vmA, float *vmB) {
     int condit = 1, k;
     while (condit!=0) {
