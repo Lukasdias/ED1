@@ -1,7 +1,7 @@
 #include "../header/matriz.h"
 
 //FUNÇÃO PRINCIPAL ONDE TODAS AS FUNÇÕES SÃO CHAMADAS DENTRO DA FUNÇÃO MENU//
-void LerMa() {
+int LerMa() {
     FILE *arqMA;
     FILE *arqMB;
 
@@ -48,13 +48,20 @@ void LerMa() {
     }
     fclose(arqMB);
 
+    if(linhasA < 0 || linhasB < 0 || colunasA < 0 || colunasB < 0){
+        printf("\t FAVOR CHECAR ARQ, POIS NUMERO D LINHAS/COLUNAS CONSTA COMO NEGATIVO!!!\n");
+        FreeMat(Vma);
+        FreeMat(Vmb);
+        return 0;
+    }
+
     //Menu principal recebendo os devidos parametros//
     menu(linhasA, colunasA, linhasB, colunasB, Vma, Vmb);
 
     //Liberar memória alocada//
     FreeMat(Vma);
     FreeMat(Vmb);
-          
+    return 1;
 }
 
 //FUNÇÃO MENU RECEBE LINHAS A/COLUNAS DE A, LINHAS DE B/COLUNAS DE B E AS MATRIZES A E B PARA SEREM PROCESSADAS NAS OUTRAS FUNÇÕES//
@@ -383,8 +390,11 @@ int RetornaColuna(int n, int m, float *vma, int k){
 
 //LIBERA MEMORIA ALOCADA PELAS MATRIZES//
 float *FreeMat(float *vmat) {
-   free(vmat);
-   printf("Liberou\n");
+   if(vmat!=NULL){
+       free(vmat);
+       printf("\t Liberou\n");
+       return NULL;
+   }
    return NULL;   
 }
 

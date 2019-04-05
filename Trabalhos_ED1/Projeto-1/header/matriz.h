@@ -4,7 +4,7 @@
 #include <math.h>
 
 void menu(int, int, int ,int ,float *, float *);
-void LerMa();
+int LerMa();
 void printAB(int , int , int , int , float *, float *);
 float *AlocVMat(int, int);
 float *FreeMat(float *);
