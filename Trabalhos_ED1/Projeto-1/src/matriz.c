@@ -102,14 +102,14 @@ void menu(int n, int m, int p, int q, float *vmA, float *vmB) {
                 break;
             case 6:
                 printAB(n, m, p, q, vmA, vmB);
-                printf("Insira a linha de A a ser usada: ");
+                printf("\t Insira a linha de A a ser usada: ");
                 scanf("%d", &k);
                 fflush(stdin);
                 RetornaLinha(n, m, vmA, k);
                 break;
             case 7:
                 printAB(n, m, p, q, vmA, vmB);
-                printf("Insira a coluna de A a ser usada: ");
+                printf("\t Insira a coluna de A a ser usada: ");
                 scanf("%d", &k);
                 fflush(stdin);
                 RetornaColuna(n, m, vmA, k);
@@ -128,23 +128,23 @@ void printAB(int n, int m, int p, int q, float *ma, float *mb){
     int i, j;
     
     //Print Matriz A//
-    printf("===============Matriz A=================\n");
+    printf("\t ===============Matriz A=================\n");
     for(i=0;i<n;i++){
         for(j=0;j<m;j++){
-            printf("%.3f ", ma[i*m+j]);
+            printf("\t %.2f ", ma[i*m+j]);
         }
         putchar('\n');
     }
-    printf("===============Matriz A=================\n\n");
+    printf("\t ===============Matriz A=================\n\n");
     //Print Matriz B//
-    printf("===============Matriz B=================\n");
+    printf("\t ===============Matriz B=================\n");
     for(i=0;i<q;i++){
         for(j=0;j<q;j++){
-            printf("%.3f ", mb[i*m+j]);
+            printf("\t %.2f ", mb[i*m+j]);
         }
         putchar('\n');
     }
-    printf("===============Matriz B=================\n");
+    printf("\t ===============Matriz B=================\n");
     putchar('\n');    
 }
 
@@ -167,26 +167,26 @@ float *AlocVMat(int linhas, int colunas) {
 int ProdAxB(int n, int m, int p, int q, float *ma, float *mb){
     int i, j, k;
     float *mc;
-    int sum = 0;
+    int aux = 0;
     if(m==p){
         mc = AlocVMat(n, q);
         for(i=0;i<n;i++){
             for(j=0;j<q;j++){
                 for(k=0;k<n;k++){
-                    sum += ma[i*q+k] * mb[k*q+j];
+                    aux += ma[i*q+k] * mb[k*q+j];
                 }
-                 mc[i*q+j] = sum;
-                 sum = 0;
+                 mc[i*q+j] = aux;
+                 aux = 0;
             }
         }
-        printf("==========Matriz Produto AXB===========\n");
+        printf("\t ==========Matriz Produto AXB===========\n");
         for(i=0;i<n;i++){
             for(j=0;j<q;j++){
-                printf("%.2f ", mc[i*m+j]);
+                printf("\t %.2f ", mc[i*m+j]);
             }
             putchar('\n');
         }
-        printf("==========Matriz Produto AXB===========\n");
+        printf("\t ==========Matriz Produto AXB===========\n");
         putchar('\n');
         system("PAUSE");
         free(mc);
@@ -204,7 +204,7 @@ int ProdAxBT(int n, int m, int p, int q, float *ma, float *mb){
     int i, j, k;
     float *mbT = Transposta(p, q, mb);
     float *mc;
-    int sum = 0;
+    int aux = 0;
 
     if(m==p){
         mc = AlocVMat(n, q);
@@ -212,20 +212,20 @@ int ProdAxBT(int n, int m, int p, int q, float *ma, float *mb){
             for(i=0;i<n;i++){
                 for(j=0;j<q;j++){
                     for(k=0;k<n;k++){
-                        sum += ma[i*q+k] * mbT[k*q+j];
+                        aux += ma[i*q+k] * mbT[k*q+j];
                     }
-                    mc[i*q+j] = sum;
-                    sum = 0;
+                    mc[i*q+j] = aux;
+                    aux = 0;
                 }
             }
-            printf("==========Matriz Produto AXBT===========\n");
+            printf("\t ==========Matriz Produto AXBT===========\n");
             for(i=0;i<n;i++){
                 for(j=0;j<m;j++){
-                    printf("%.2f ", mc[i*m+j]);
+                    printf("\t %.2f ", mc[i*m+j]);
                 }
                 putchar('\n');
             }
-            printf("==========Matriz Produto AXBT===========\n");
+            printf("\t ==========Matriz Produto AXBT===========\n");
             system("PAUSE");
             putchar('\n');
             free(mbT);
@@ -235,7 +235,7 @@ int ProdAxBT(int n, int m, int p, int q, float *ma, float *mb){
         free(mc);
     }
 
-    printf("\tA multiplicacao nao e possivel pois, colunas de A != linhas de B\n");
+    printf("\t A multiplicacao nao e possivel pois, colunas de A != linhas de B\n");
     system("PAUSE");
     free(mbT);
     return 0;
@@ -255,13 +255,14 @@ float *Transposta(int n, int m, float *ma){
             }
             putchar('\n');
 
-            printf("==========Matriz Transposta===========\n");
+            printf("\t ==========Matriz Transposta===========\n");
             for(i = 0;i<n;i++){
                 for(j=0;j<m;j++){
-                    printf("%.2f ", maT[i*m+j]);
+                    printf("\t %.2f ", maT[i*m+j]);
                 }
                 putchar('\n');
             }
+            printf("\t ==========Matriz Transposta===========\n");
             putchar('\n');
             system("PAUSE");
             putchar('\n');
@@ -277,15 +278,23 @@ float *Transposta(int n, int m, float *ma){
 //IMPRIME NA TELA OS ELEMENTOS DA TRIANGULAR SUP DE A, OU SEJA, TODOS ELEM ONDE J>I//
 int TriangularSup(int n, float *vma){
    int i, j;
+
+    if(n<0){
+        printf("Numero de linhas/colunas = invalido\n");
+        system("PAUSE");
+        return 0;
+    }
+
     if(vma!=NULL){
-        printf("=======ELEMENTOS DA TRIANGULAR de A=======\n");
+        printf("\t =======ELEMENTOS DA TRIANGULAR de A=======\n");
         for(i=0;i<n;i++){
             for(j=0;j<n;j++){
                 if(j>i){
-                    printf("%.2f[%d][%d]\n", vma[i*n+j], i, j);
+                    printf("\t %.2f[%d][%d]\n", vma[i*n+j], i, j);
                 }
             }
         }
+        printf("\t =======ELEMENTOS DA TRIANGULAR de A=======\n");
         system("PAUSE");
         return 1;
     }
@@ -295,16 +304,23 @@ int TriangularSup(int n, float *vma){
 //IMPRIME NA TELA OS ELEMENTOS DA DIAGONAL PRINCIPAL DE A, OU SEJA, TODOS ELEM ONDE I == J//
 int DiagonalP(int n, int m, float *ma){
     int i, j;
+    if(n<0 || m<0){
+        printf("Numero de linhas/colunas = invalido\n");
+        system("PAUSE");
+        return 0;
+    }
+    
     if(ma!=NULL && n==m){
         //Recebendo elementos da Diagonal  e armazenando num array de tamanho [m]//
-        printf("=======ELEMENTOS DA DIAGONAL P. de A=======\n");
+        printf("\t =======ELEMENTOS DA DIAGONAL P. de A=======\n");
         for(i = 0; i<n;i++){
             for(j = 0; j<m;j++) {
                 if(i==j) {
-                    printf("%.2f[%d][%d]\n", ma[i*m+j], i, j);
+                    printf("\t %.2f[%d][%d]\n", ma[i*m+j], i, j);
                 }
             }
         }
+        printf("\t =======ELEMENTOS DA DIAGONAL P. de A=======\n");
         system("PAUSE");
         return 1;
     }
@@ -316,14 +332,22 @@ int DiagonalP(int n, int m, float *ma){
 //IMPRIME NA TELA TODOS OS ELEMENTOS DA LINHA REQUISITADA PELO USER USANDO UMA ENTRADA DO TECLADO PASSA PARA A VARIAVEL K//
 int RetornaLinha(int n, int m, float *vma, int k){
     int i, j;
+    if(k > n){
+        printf("K e maior que o numero de linhas, favor digitar novamente\n");
+        system("PAUSE");
+        return 0;
+    }
+
+    printf("\t =======ELEMENTOS DA LINHA K(%d) A=======\n", k);
     if(vma != NULL && n>0 && m>0 && n >= k){
         for(i = 0; i<n ;i++) {
             for(j = 0; j<m ;j++) {
                 if (i == k) {
-                    printf("%.2f[%d][%d]\n", vma[i*m+j], i, j);
+                    printf("\t %.2f[%d][%d]\n", vma[i*m+j], i, j);
                 }
             }
         }
+        printf("\t =======ELEMENTOS DA LINHA K(%d) A=======\n", k);
         system("PAUSE");
         return 1;
     }
@@ -333,14 +357,23 @@ int RetornaLinha(int n, int m, float *vma, int k){
 //IMPRIME NA TELA TODOS OS ELEMENTOS DA COLUNA REQUISITADA PELO USER USANDO UMA ENTRADA DO TECLADO PASSA PARA A VARIAVEL K//
 int RetornaColuna(int n, int m, float *vma, int k){
     int i, j;
+
+    if(k > m){
+        printf("K e maior que o numero de colunas, favor digitar novamente\n");
+        system("PAUSE");
+        return 0;
+    }
+
+    printf("\t =======ELEMENTOS DA COLUNA K(%d) A=======\n", k);
     if(vma != NULL && n>0 && m>0 && n >= k){
         for(i = 0; i<n ;i++){
             for(j = 0; j<m ;j++){
                 if (j == k){
-                    printf("%.2f[%d][%d]\n", vma[i*m+j], i, j);
+                    printf("\t %.2f[%d][%d]\n", vma[i*m+j], i, j);
                 }
             }
         }
+        printf("\t =======ELEMENTOS DA COLUNA K(%d) A=======\n", k);
         system("PAUSE");
         return 1;
     }
