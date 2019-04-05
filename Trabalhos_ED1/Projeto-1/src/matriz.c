@@ -143,11 +143,12 @@ void printAB(int n, int m, int p, int q, float *ma, float *mb){
         putchar('\n');
     }
     printf("\t ===============Matriz A=================\n\n");
+
     //Print Matriz B//
     printf("\t ===============Matriz B=================\n");
-    for(i=0;i<q;i++){
+    for(i=0;i<p;i++){
         for(j=0;j<q;j++){
-            printf("\t %.2f ", mb[i*m+j]);
+            printf("\t %.2f ", mb[i*q+j]);
         }
         putchar('\n');
     }
@@ -174,14 +175,15 @@ float *AlocVMat(int linhas, int colunas) {
 int ProdAxB(int n, int m, int p, int q, float *ma, float *mb){
     int i, j, k;
     float *mc;
-    int aux = 0;
+    float aux = 0;
+    
     if(m==p){
         mc = AlocVMat(n, q);
         for(i=0;i<n;i++){
             for(j=0;j<q;j++){
-                for(k=0;k<n;k++){
-                    aux += ma[i*q+k] * mb[k*q+j];
-                }
+                for(k=0;k<m;k++){
+                    aux += ma[i*m+k] * mb[k*q+j];
+                } 
                  mc[i*q+j] = aux;
                  aux = 0;
             }
@@ -189,7 +191,7 @@ int ProdAxB(int n, int m, int p, int q, float *ma, float *mb){
         printf("\t ==========Matriz Produto AXB===========\n");
         for(i=0;i<n;i++){
             for(j=0;j<q;j++){
-                printf("\t %.2f ", mc[i*m+j]);
+                printf("\t %.2f ", mc[i*q+j]);
             }
             putchar('\n');
         }
@@ -199,6 +201,7 @@ int ProdAxB(int n, int m, int p, int q, float *ma, float *mb){
         free(mc);
         return 0;
     }
+
     printf("A multiplicacao nao e possivel pois, colunas de A != linhas de B\n");
     system("PAUSE");
     return 0;
@@ -209,26 +212,28 @@ int ProdAxB(int n, int m, int p, int q, float *ma, float *mb){
 //RETORNA 1 SE A OPERAÇÃO FOI UM SUCESSO//
 int ProdAxBT(int n, int m, int p, int q, float *ma, float *mb){
     int i, j, k;
+    printf("\t ========Matriz TRANSPOSTA DE B=========\n");
     float *mbT = Transposta(p, q, mb);
     float *mc;
-    int aux = 0;
+    float aux = 0;
 
-    if(m==p){
+    //TRANPOSTA -> P SERÁ TROCADO POR Q, JÁ QUE B FOI TRANSPOSTA//
+    if(m==q){
         mc = AlocVMat(n, q);
         if(mc!=NULL){
             for(i=0;i<n;i++){
-                for(j=0;j<q;j++){
-                    for(k=0;k<n;k++){
-                        aux += ma[i*q+k] * mbT[k*q+j];
+                for(j=0;j<p;j++){
+                    for(k=0;k<p;k++){
+                        aux += ma[i*m+k] * mbT[k*p+j];
                     }
-                    mc[i*q+j] = aux;
+                    mc[i*p+j] = aux;
                     aux = 0;
                 }
             }
             printf("\t ==========Matriz Produto AXBT===========\n");
             for(i=0;i<n;i++){
-                for(j=0;j<m;j++){
-                    printf("\t %.2f ", mc[i*m+j]);
+                for(j=0;j<p;j++){
+                    printf("\t %.2f ", mc[i*p+j]);
                 }
                 putchar('\n');
             }
@@ -242,7 +247,7 @@ int ProdAxBT(int n, int m, int p, int q, float *ma, float *mb){
         free(mc);
     }
 
-    printf("\t A multiplicacao nao e possivel pois, colunas de A != linhas de B\n");
+    printf("\t A multiplicacao nao e possivel pois, colunas de A != linhas de B(TRANSPOSTA)\n");
     system("PAUSE");
     free(mbT);
     return 0;
@@ -255,17 +260,17 @@ float *Transposta(int n, int m, float *ma){
    if (ma!=NULL){
       maT = (float *) malloc(n*m * sizeof(float));
         if (maT!=NULL) {
-            for(i = 0;i<n;i++){
-                for(j=0;j<m;j++){
-                    maT[i*m+j] = ma[j*m+i];
+            for(i = 0;i<m;i++){
+                for(j=0;j<n;j++){
+                    maT[i*n+j] = ma[j*m+i];
                 }
             }
             putchar('\n');
 
             printf("\t ==========Matriz Transposta===========\n");
-            for(i = 0;i<n;i++){
-                for(j=0;j<m;j++){
-                    printf("\t %.2f ", maT[i*m+j]);
+            for(i = 0;i<m;i++){
+                for(j=0;j<n;j++){
+                    printf("\t %.2f ", maT[i*n+j]);
                 }
                 putchar('\n');
             }
@@ -332,8 +337,8 @@ int DiagonalP(int n, int m, float *ma){
         return 1;
     }
     printf("ERRO, function DiagonalP()\nMatriz N e QUADRADA!!!\n");
+    system("PAUSE");
     return 0;
-
 }
 
 //IMPRIME NA TELA TODOS OS ELEMENTOS DA LINHA REQUISITADA PELO USER USANDO UMA ENTRADA DO TECLADO PASSA PARA A VARIAVEL K//
