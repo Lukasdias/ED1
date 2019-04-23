@@ -23,12 +23,12 @@ Cofo *cofCreate(int max){
 
 int cofDestroy(Cofo *c){
   if (c != NULL){
-    if (c->elm != NULL){
+    if (c->nelm == 0){
       free(c->elm);
+      free(c);
+      printf("Cofo destruido!!!\n");
+      return TRUE;
     }
-    free(c);
-    printf("Cofo destruido!!!\n");
-    return TRUE;
   }
   return FALSE;
 }
@@ -39,7 +39,7 @@ int cofInsert(Cofo *c, void *item){
         c->elm[c->nelm] = item;
         c->nelm++;
         printf("Inserido com sucesso!!!\n");
-        return c->nelm;
+        return TRUE;
     }
     else {
       printf("Cofo cheio!!!, nao e possivel adicionar mais estruturas!!!\n");
@@ -50,21 +50,17 @@ int cofInsert(Cofo *c, void *item){
 }
 
 void *cofQuery(Cofo *c, void *key, int(*cmp)(void *, void *)){
-  int i = 0;
+  int i;
   void *aux;
-
+  int stat;
   if (c != NULL){
-    if (c->elm != NULL){
-      if (c->nelm > 0){
-        int stat = cmp(key, c->elm[i]);
-        while ((i < c->nelm) && (stat!=TRUE)){
-          i++;
-          stat = cmp(key, c->elm);
-        }
-        if (stat == TRUE){
-          aux =  c->elm[i];
-          return aux;
-        }
+    if (c->nelm > 0){
+      for(i=0;i<c->nelm;i++){
+          stat = cmp(key, c->elm[i]);
+          if(stat == TRUE){
+              aux = c->elm[i];
+              return aux;
+          }
       }
     }
   }
@@ -72,7 +68,7 @@ void *cofQuery(Cofo *c, void *key, int(*cmp)(void *, void *)){
 }
 
 void cofCheck(Cofo *c) {
-  if(c->nelm >= 0){
+  if(c->nelm>=0){
     printf("Itens inseridos no cofo %d\n", c->nelm);
     printf("Capacidade maxima: %d\n", c->max);
   }
@@ -81,4 +77,24 @@ void cofCheck(Cofo *c) {
     printf("Cofo inexistente\n");
   }
   
+}
+
+void *cofRemove(Cofo *c, void *key, int(*cmp)(void *, void *)){
+    int i = 0, j;
+    void *aux;
+
+    if(c!=NULL){
+      if(c->nelm>0){
+        int stat = cmp(key, c->elm[i]);
+        if(stat == TRUE){
+          aux = c->elm[i];
+          for(j=i;(j<c->nelm-1);j++){
+            c->elm[j] = c->elm[j+1];
+          }
+          c->nelm--;
+          return aux;
+        }
+      }
+    }
+    return NULL;
 }

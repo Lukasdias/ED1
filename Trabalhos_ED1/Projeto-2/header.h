@@ -11,7 +11,7 @@
   }Cofo;
 
   typedef struct _PESSOA_{
-    long int cpf;
+    char cpf[11];
     char nome[30];
     int numFilhos;
     double salario;
@@ -25,6 +25,8 @@
     int cofInsert(Cofo *c, void *item);
     void cofCheck(Cofo *c);
     void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*));
+    void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*));
+
   #else
 
     extern Cofo *cofCreate(int max);
@@ -32,6 +34,7 @@
     extern int cofInsert(Cofo *c, void* item);
     extern int cofCheck(Cofo *c);
     extern void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*));
+    extern void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*));
 
   #endif
 
