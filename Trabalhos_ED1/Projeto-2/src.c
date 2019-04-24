@@ -67,14 +67,12 @@ void *cofQuery(Cofo *c, void *key, int(*cmp)(void *, void *)){
   return NULL;
 }
 
-void cofCheck(Cofo *c) {
-  if(c->nelm>=0){
-    printf("Itens inseridos no cofo %d\n", c->nelm);
-    printf("Capacidade maxima: %d\n", c->max);
+int cofCheck(Cofo *c) {
+  if(c!=NULL){
+    return TRUE;
   }
-  else
-  {
-    printf("Cofo inexistente\n");
+  else {
+    return FALSE;
   }
   
 }
