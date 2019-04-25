@@ -11,7 +11,7 @@
   }Cofo;
 
   typedef struct _PESSOA_{
-    char cpf[14];
+    char cpf[12];
     char nome[30];
     int numFilhos;
     double salario;
@@ -20,21 +20,21 @@
 
   #ifdef _COFO_C_
 
-    Cofo *cofCreate(int max);
-    int cofDestroy(Cofo *c);
-    int cofInsert(Cofo *c, void *item);
-    int cofCheck(Cofo *c);
-    void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*));
-    void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*));
+    Cofo *cofCreate(int max); //Cria Cofo//
+    int cofDestroy(Cofo *c); //Destroi Cofo//
+    int cofInsert(Cofo *c, void *item); //Insere no Cofo//
+    int cofCheck(Cofo *c); //Checa quantos itens tem no Cofo//
+    void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*)); //Procurar um item no Cofo//
+    void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*)); //Remove um item no Cofo//
 
   #else
 
-    extern Cofo *cofCreate(int max);
-    extern int cofDestroy(Cofo *c);
-    extern int cofInsert(Cofo *c, void* item);
-    extern int cofCheck(Cofo *c);
-    extern void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*));
-    extern void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*));
+    extern Cofo *cofCreate(int max); //Cria Cofo//
+    extern int cofDestroy(Cofo *c); //Destroi Cofo//
+    extern int cofInsert(Cofo *c, void* item); //Insere no Cofo//
+    extern int cofCheck(Cofo *c); //Checa quantos itens tem no Cofo//
+    extern void *cofQuery(Cofo *c, void *key, int(*cmp)(void*, void*)); //Procurar um item no Cofo//
+    extern void *cofRemove(Cofo *c, void *key, int(*cmp)(void*, void*)); //Remove um item no Cofo//
 
   #endif
 

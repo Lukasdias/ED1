@@ -168,7 +168,7 @@ int cmpNomePessoa(void *a, void *b){
 
 int searchCpf(Cofo *c){
 
-    char aux_cpf[14];
+    char aux_cpf[12];
     Pessoa *aux_P;
     if(c!=NULL && isCofo == TRUE && c->nelm>0){
         printf("Informe o CPF da pessoa a ser buscada: ");
@@ -227,7 +227,7 @@ int searchName(Cofo *c){
 }
 
 int removeViaCpf(Cofo *c){
-    char aux_cpf[14];
+    char aux_cpf[12];
     Pessoa *aux_P;
     if(c!=NULL && isCofo == TRUE && c->nelm>0){
         printf("Informe o CPF da pessoa a ser buscada: ");
@@ -258,7 +258,7 @@ int removeViaName(Cofo *c){
     if(c!=NULL && isCofo == TRUE && c->nelm>0){
         printf("Informe o nome da pessoa a ser buscada: ");
         fflush(stdin);
-        scanf("%[^\n]s", &aux_nome);
+        scanf("%[^\n]s", &(aux_nome));
         fflush(stdin);
         aux_P = (Pessoa *)cofRemove(c, (void *)aux_nome, cmpNomePessoa);
         if (aux_P != NULL){
@@ -284,11 +284,11 @@ int insertPessoa(Cofo *c){
         if (p != NULL) {
             printf("Informe o nome da pessoa: ");
             fflush(stdin);
-            scanf("%[^\n]s", &(p->nome));
+            scanf("%[^\n]s", (p->nome));
             fflush(stdin);
             printf("Informe o CPF da pessoa: ");
             fflush(stdin);
-            scanf("%[^\n]s", &(p->cpf));
+            scanf("%[^\n]s", (p->cpf));
             fflush(stdin);
             printf("Informe o salario de %s: ", p->nome);
             scanf("%lf", &(p->salario));
