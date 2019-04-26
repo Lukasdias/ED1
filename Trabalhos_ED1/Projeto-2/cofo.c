@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "header.h"
+#include "cofo.h"
 
 Cofo *cofCreate(int max){
   Cofo *c;

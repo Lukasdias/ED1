@@ -10,14 +10,6 @@
       void **elm;
   }Cofo;
 
-  typedef struct _PESSOA_{
-    char cpf[12];
-    char nome[30];
-    int numFilhos;
-    double salario;
-    int idade;
-  }Pessoa;
-
   #ifdef _COFO_C_
 
     Cofo *cofCreate(int max); //Cria Cofo//
