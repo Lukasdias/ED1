@@ -67,25 +67,18 @@ void *cofQuery(Cofo *c, void *key, int(*cmp)(void *, void *)){
   return NULL;
 }
 
-int cofCheck(Cofo *c) {
-  if(c!=NULL){
-    return TRUE;
-  }
-  else {
-    return FALSE;
-  }
-  
-}
-
 void *cofRemove(Cofo *c, void *key, int(*cmp)(void *, void *)){
-    int i = 0, j;
-    void *aux;
-
     if(c!=NULL){
       if(c->nelm>0){
+        int i = 0, j;
+        void *aux;
         int stat = cmp(key, c->elm[i]);
+        while(i<c->nelm-1 && stat != TRUE){
+          aux=c->elm[i];
+          stat=cmp(aux, key);
+          i++;
+        }
         if(stat == TRUE){
-          aux = c->elm[i];
           for(j=i;(j<c->nelm-1);j++){
             c->elm[j] = c->elm[j+1];
           }

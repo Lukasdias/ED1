@@ -63,6 +63,8 @@ int searchCpf(Cofo *c){
             return FALSE;
         }
     }
+    printf("COFO VAZIO!!!\n");
+    system("PAUSE");
     return FALSE;
 }
 
@@ -93,6 +95,8 @@ int searchName(Cofo *c){
             return FALSE;
         } 
     }
+    printf("COFO VAZIO!!!\n");
+    system("PAUSE");
     return FALSE;
 }
 
@@ -107,7 +111,7 @@ int removeViaCpf(Cofo *c){
         aux_P = (Pessoa *)cofRemove(c, (void *)aux_cpf, cmpCpfPessoa);
         if (aux_P != NULL){
             printf("================================================================================\n");
-            printf("Pessoa %s com o CPF = %s foi encontrada e removida do cofo!!!\n", aux_P->nome, aux_P->cpf);
+            printf("Pessoa com o CPF = %s foi encontrada e removida do cofo!!!\n", aux_cpf);
             printf("================================================================================\n");
             system("PAUSE");
             return TRUE;
@@ -133,7 +137,7 @@ int removeViaName(Cofo *c){
         aux_P = (Pessoa *)cofRemove(c, (void *)aux_nome, cmpNomePessoa);
         if (aux_P != NULL){
             printf("================================================================================\n");
-            printf("Pessoa chamada %s foi removida do cofo!!!\n", aux_P->nome);
+            printf("Pessoa chamada %s foi removida do cofo!!!\n", aux_nome);
             printf("================================================================================\n");
             system("PAUSE");
             return TRUE;
