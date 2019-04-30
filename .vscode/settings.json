@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.html": "twig",
-        "cofo.h": "c",
-        "string.h": "c",
-        "stdio.h": "c"
-    }
-}
