@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.html": "twig",
-        "lista.h": "c",
-        "string.h": "c"
-    }
-}
