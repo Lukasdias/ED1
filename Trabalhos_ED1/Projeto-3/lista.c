@@ -6,7 +6,6 @@
 
 Sllist *sllCreate(){
     Sllist *l;
-
     l = (Sllist*)malloc(sizeof(Sllist));
     if(l!=NULL){
         l->first = NULL;
@@ -15,6 +14,13 @@ Sllist *sllCreate(){
     return NULL;
 }
 
+int sllDestroy(Sllist *l){
+    if(l->first==NULL){
+        free(l);
+        return true;
+    }
+    return false;
+}
 int sllInsertFirst(Sllist *l, void *elm){
     Sllnode *newnode;
     if(l!=NULL){
@@ -29,6 +35,55 @@ int sllInsertFirst(Sllist *l, void *elm){
     }
     return false;
 }
+
+int sllinsertLast(Sllist *l, void *elm){
+    Sllnode *newnode;
+    Sllnode *last;
+
+    if(l!=NULL){
+        newnode = (Sllnode*)malloc(sizeof(Sllnode));
+        if(newnode!=NULL){
+            newnode->next = NULL;
+            newnode->data = elm;
+            if(l->first!=NULL){
+                last = last->next;
+                while(last->next!=NULL){
+                    last = last->next;
+                }
+                last->next = newnode;
+            }else{
+                l->first = newnode;
+            }
+
+            return true;
+        }
+    }
+    return false;
+}
+/*
+int sllInsertLast(Sllist *l, void *elm){
+    Sllnode *newnode;
+    if(l!=NULL){
+        newnode = (Sllnode*)malloc(sizeof(Sllnode));
+        if(newnode!=NULL){
+            newnode->data = elm;
+            newnode->next = NULL;
+            return true;
+        }
+    }
+    
+    if(l == NULL){
+        l = newnode;
+    }else{
+        Sllnode *aux;
+        aux = l;
+        while(aux->next != NULL){
+            aux = aux->next;
+        }
+        aux->next = newnode;
+    }
+}
+*/
 
 void *sllRemoveFirst(Sllist *l){
     Sllnode *aux;

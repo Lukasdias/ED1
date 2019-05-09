@@ -25,8 +25,9 @@ void menuLista(){
     while (condit!=0) {
         //Estruturas//
         Pessoa *p;
+        int num;
         //Estruturas//
-        // system("cls");
+        system("cls");
         printf("==================================MENU LISTA====================================\n");
         printf("[1] *** Criar uma Lista \n");
         printf("[2] *** Destruir uma Lista\n");
@@ -34,7 +35,7 @@ void menuLista(){
         printf("[4] *** Pesquisar uma Pessoa na Lista\n");
         printf("[5] *** Remover uma pessoa da Lista\n");
         printf("[6] *** Listar todas as pessoas da Lista\n");
-        printf("[7] *** Limpar a Lista\n");
+        printf("[7] *** Esvaziar a Lista\n");
         printf("[0] *** Sair\n");
         printf("================================================================================\n");
         printf("Sua Escolha: ");
@@ -44,19 +45,34 @@ void menuLista(){
         //Escolhas//
         switch (condit){
             case 1:
-                if(l==NULL){
-                    l = sllCreate();
-                }else{
-                    printf("Ainda existe uma lista, destrua ela para poder criar outra");
+                l = sllCreate();
+                if(l!=NULL){
+                    printf("Lista criada\n");
+                }else {
+                    printf("Lista n pode ser criada\n");
                 }
+                system("pause");
                 break;
             case 2:
+                if(l!=NULL){
+                    test = sllDestroy(l);
+                    if(test==true){
+                        printf("Lista destruida com sucesso");
+                    }else{
+                        printf("Lista nao foi destruida\n");
+                    }
+                }
+                system("pause");
                 break;
             case 3:
+                printf("insere: ");
+                system("pause");
                 break;
             case 4:
                 break;
             case  5:
+                printf("removeu: ");
+                system("PAUSE");
                 break;
             case 6:
                 break;

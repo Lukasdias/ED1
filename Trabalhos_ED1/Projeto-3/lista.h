@@ -14,11 +14,13 @@ typedef struct _sllist_{
     #ifndef _LISTA_C_
         Sllist *sllCreate();
         int sllInsertFirst(Sllist *l, void *);
+        int sllInsertLast(Sllist *l, void *);
         void *sllRemoveFirst(Sllist *l);
         int sllDestroy(Sllist *l);
     #else
         extern Sllist *sllCreate();
         extern int sllInsertFirst(Sllist *l, void *);
+        extern int sllInsertLast(Sllist *l, void *);
         extern void *sllRemoveFirst(Sllist *l);
         extern int sllDestroy(Sllist *l);
     #endif

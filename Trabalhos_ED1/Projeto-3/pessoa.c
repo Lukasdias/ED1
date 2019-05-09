@@ -34,7 +34,6 @@ int cmpNomePessoa(void *a, void *b){
     return false;
   }
 }
-
 int searchCpf(Lista *l){
 
     char aux_cpf[12];
@@ -150,18 +149,18 @@ int removeViaName(Lista *l){
     printf("Lista Vazio!!!\n");
     return false;
 }
-
-int insertPessoa(Lista *c){        
-    if(c!=NULL) {
+*/
+int insertPessoa(Sllist *l){        
+    if(l!=NULL) {
         Pessoa *p = (Pessoa *) malloc(sizeof(Pessoa));
         if (p != NULL) {
             printf("Informe o nome da pessoa: ");
             fflush(stdin);
-            scanf("%[^\n]s", (p->nome));
+            scanf("%[^\n]s", &(p->nome));
             fflush(stdin);
             printf("Informe o CPF da pessoa: ");
             fflush(stdin);
-            scanf("%[^\n]s", (p->cpf));
+            scanf("%[^\n]s", &(p->cpf));
             fflush(stdin);
             printf("Informe o salario de %s: ", p->nome);
             scanf("%lf", &(p->salario));
@@ -169,7 +168,9 @@ int insertPessoa(Lista *c){
             scanf("%d", &(p->numFilhos));
             printf("Informe a idade de %s: ", p->nome);
             scanf("%d", &(p->idade));
-            cofInsert(c, (void *)p);
+            sllInsertFirst(l, (void *)p);
+            free(p);
+            printf("Pessoa inserida com sucesso\n");
             system("PAUSE");
             return true;
         }
@@ -178,12 +179,12 @@ int insertPessoa(Lista *c){
     system("PAUSE");
     return false;
 }
-
-int showAll(Lista *c){
+/*
+int showAll(Sllist *c){
     int i;
     if(c!=NULL) {
         if(c->nelm>0){
-            printf("===============================\tPESSOAS NO Lista\t==================================\n");
+            printf("===============================\tPessoas Na Lista\t==================================\n");
             for(i=0;i<c->nelm; i++){
                 Pessoa *aux = (Pessoa*)c->elm[i];
                 printf("================================================================================\n");
@@ -195,21 +196,22 @@ int showAll(Lista *c){
                 printf("================================================================================\n");
 
             }
-            printf("===============================\tPESSOAS NO Lista\t==================================\n");
+            printf("===============================\tPessoas Na Lista\t==================================\n");
             system("PAUSE");
             return true;
         }
         else {
             printf("================================================================================\n");
-            printf("Lista Vazio\n");
+            printf("Lista Vazia\n");
             printf("================================================================================\n");
             system("PAUSE");
         }
     }
     return false;
 }
-
-int freeAll(Lista *c){
+*/
+/*
+int freeAll(Sllist *l){
     int i;
     if(c!=NULL) {
         if(c->nelm>0){

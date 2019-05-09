@@ -12,5 +12,7 @@
 *.pif
 *.vb
 *.wsf
+*.bin
+*.ipch
 
 # End of https://www.gitignore.io/api/executable
