@@ -26,6 +26,7 @@ void menuLista(){
         //Estruturas//
         Pessoa *p;
         int num;
+        int num2;
         //Estruturas//
         system("cls");
         printf("==================================MENU LISTA====================================\n");
@@ -65,14 +66,28 @@ void menuLista(){
                 system("pause");
                 break;
             case 3:
-                printf("insere: ");
-                system("pause");
+                printf("deseja inserir no inicio ou no fim?[1]inicio[0]fim: ");
+                scanf("%d", &num2);
+                if(num2==1){
+                    printf("insere: ");
+                    scanf("%d", &num);
+                    sllInsertFirst(l, (void*)num);
+                    system("pause");
+                }else if(num2==0){
+                    printf("insere: ");
+                    scanf("%d", &num);
+                    sllInsertLast(l, (void*)num);
+                    system("pause");
+                }
                 break;
             case 4:
                 break;
-            case  5:
+            case 5:
                 printf("removeu: ");
-                system("PAUSE");
+                num = (int*)sllRemoveFirst(l);
+                if(num!=NULL){
+                    printf("%d\n", num);
+                }
                 break;
             case 6:
                 break;

@@ -36,7 +36,7 @@ int sllInsertFirst(Sllist *l, void *elm){
     return false;
 }
 
-int sllinsertLast(Sllist *l, void *elm){
+int sllInsertLast(Sllist *l, void *elm){
     Sllnode *newnode;
     Sllnode *last;
 
@@ -60,30 +60,6 @@ int sllinsertLast(Sllist *l, void *elm){
     }
     return false;
 }
-/*
-int sllInsertLast(Sllist *l, void *elm){
-    Sllnode *newnode;
-    if(l!=NULL){
-        newnode = (Sllnode*)malloc(sizeof(Sllnode));
-        if(newnode!=NULL){
-            newnode->data = elm;
-            newnode->next = NULL;
-            return true;
-        }
-    }
-    
-    if(l == NULL){
-        l = newnode;
-    }else{
-        Sllnode *aux;
-        aux = l;
-        while(aux->next != NULL){
-            aux = aux->next;
-        }
-        aux->next = newnode;
-    }
-}
-*/
 
 void *sllRemoveFirst(Sllist *l){
     Sllnode *aux;
@@ -92,7 +68,7 @@ void *sllRemoveFirst(Sllist *l){
         if(l->first!=NULL){
             aux = l->first;
             l->first = aux->next;
-            data=aux->data;
+            data = aux->data;
             free(aux);
             return data;
         }
