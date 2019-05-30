@@ -21,6 +21,7 @@ int sllDestroy(Sllist *l){
     }
     return false;
 }
+
 int sllInsertFirst(Sllist *l, void *elm){
     Sllnode *newnode;
     if(l!=NULL){
@@ -45,16 +46,15 @@ int sllInsertLast(Sllist *l, void *elm){
         if(newnode!=NULL){
             newnode->next = NULL;
             newnode->data = elm;
-            if(l->first!=NULL){
-                last = last->next;
+            if(l->first == NULL){
+                l->first = newnode;
+            }else{
+                last = l->first;
                 while(last->next!=NULL){
                     last = last->next;
                 }
                 last->next = newnode;
-            }else{
-                l->first = newnode;
             }
-
             return true;
         }
     }
@@ -76,5 +76,82 @@ void *sllRemoveFirst(Sllist *l){
     return NULL;
 }
 
+int sllNumNodes(Sllist *l){
+
+  Sllnode *aux;
+  int size = 0;
+
+  if (l != NULL){
+    if (l->first != NULL){
+      aux = l->first;
+      size = 1;
+      while (aux->next != NULL){
+        size++;
+        aux = aux->next;
+      }
+      return size;
+    }
+  }
+  return false;
+
+}
+
+void *sllQuery(Sllist *l, void *key, int(*cmp)(void*, void*)){
+
+  Sllnode *current;
+  int stat;
+  int n = 0;
+  if (l != NULL){
+    current = l->first;
+    stat = cmp(key, current->data);
+    while (stat != true && current != NULL){
+       printf("%d \n", n);
+       n++;
+       current = current->next;
+    }
+
+    if (stat == true){
+      return current->data;
+    }
+
+  }
+  return NULL;
+}
+
+void *sllRemove(Sllist *list, void *key, int(*cmp)(void*, void*)){
+
+  Sllnode *current;
+  Sllnode *previous;
+  void *data;
+  int stat;
+
+  if (list != NULL){
+    if (list->first != NULL){
+      current = list->first;
+      previous = NULL;
+      stat = cmp(key, current->data);    
+      while ( stat != true && current!= NULL){
+        previous = current;
+        current = current->next;
+        stat = cmp(key, current->data);
+      }
+
+      if (stat == true){
+        if (previous != NULL){
+          previous->next = current->next;
+        } else {
+          list->first = current->next;
+        }
+
+        data = current->data;
+        free(current);
+        return data;
+      }
+    }
+  }
+
+  return NULL;
+
+}
 
 

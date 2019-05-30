@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
+
 #include "pessoa.h"
 #include "lista.h"
 
@@ -14,6 +16,7 @@ int main(){
 void menuLista(){
     //Lista//
     Sllist *l = NULL;
+    Pessoa *aux;
     //Lista//
     
     //Variaveis auxiliares//
@@ -36,7 +39,9 @@ void menuLista(){
         printf("[4] *** Pesquisar uma Pessoa na Lista\n");
         printf("[5] *** Remover uma pessoa da Lista\n");
         printf("[6] *** Listar todas as pessoas da Lista\n");
-        printf("[7] *** Esvaziar a Lista\n");
+        if(l!=NULL){
+            printf("Pessoas na lista = %d\n", sllNumNodes(l));
+        }
         printf("[0] *** Sair\n");
         printf("================================================================================\n");
         printf("Sua Escolha: ");
@@ -46,8 +51,8 @@ void menuLista(){
         //Escolhas//
         switch (condit){
             case 1:
-                l = sllCreate();
-                if(l!=NULL){
+                if(l==NULL){
+                    l = sllCreate();
                     printf("Lista criada\n");
                 }else {
                     printf("Lista n pode ser criada\n");
@@ -66,32 +71,58 @@ void menuLista(){
                 system("pause");
                 break;
             case 3:
-                printf("deseja inserir no inicio ou no fim?[1]inicio[0]fim: ");
-                scanf("%d", &num2);
-                if(num2==1){
-                    printf("insere: ");
-                    scanf("%d", &num);
-                    sllInsertFirst(l, (void*)num);
-                    system("pause");
-                }else if(num2==0){
-                    printf("insere: ");
-                    scanf("%d", &num);
-                    sllInsertLast(l, (void*)num);
-                    system("pause");
+                printf("Deseja inserir no inicio ou no fim da lista?\n");
+                printf("[1]->no inicio\t[2]->no fim:\t");
+                scanf("%d", &test);
+                switch (test){
+                case 1:
+                    insertPessoa(l, 1);
+                    break;
+                case 2:
+                    insertPessoa(l, 2);
+                    break;
+                default:
+                    printf("Opcao invalida\n");
+                    break;
                 }
                 break;
             case 4:
+                printf("Deseja pesquisar usando CPF ou Nome\n");
+                printf("[1]->Nome\t[2]->CPF:\t");
+                scanf("%d", &test);
+                switch (test){
+                case 1:
+                    searchPessoa(l, 1);
+                    break;
+                case 2:
+                    searchPessoa(l, 2);
+                    break;
+                default:
+                    printf("Opcao invalida\n");
+                    break;
+                }
                 break;
             case 5:
-                printf("removeu: ");
-                num = (int*)sllRemoveFirst(l);
-                if(num!=NULL){
-                    printf("%d\n", num);
+                printf("Deseja remover usando CPF ou Nome?\n");
+                printf("[1]->Nome\t[2]->CPF\n");
+                scanf("%d", &test);
+                switch (test){
+                case 1:
+                    removePessoa(l, 1);
+                    break;
+                case 2:
+                    removePessoa(l, 2);
+                    break;
+                default:
+                    printf("Opcao invalida\n");
+                    break;
                 }
                 break;
             case 6:
+                showAll(l);
                 break;
             case 7:
+                //freeAll(l);
                 break;
             case 0: 
                 break;
