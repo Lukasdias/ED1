@@ -3,8 +3,8 @@
 #include <string.h>
 #include <locale.h>
 
-#include "pessoa.h"
-#include "lista.h"
+#include "pessoa.c"
+#include "lista.c"
 
 void menuLista();
 
@@ -48,7 +48,7 @@ void menuLista(){
         scanf("%d", &condit);
         fflush(stdin);
 
-        //Escolhas//
+        //Mini menu//
         switch (condit){
             case 1:
                 if(l==NULL){
@@ -63,7 +63,8 @@ void menuLista(){
                 if(l!=NULL){
                     test = sllDestroy(l);
                     if(test==true){
-                        printf("Lista destruida com sucesso");
+                        printf("Lista destruida com sucesso\n");
+                        l = NULL;
                     }else{
                         printf("Lista nao foi destruida\n");
                     }
@@ -120,9 +121,6 @@ void menuLista(){
                 break;
             case 6:
                 showAll(l);
-                break;
-            case 7:
-                //freeAll(l);
                 break;
             case 0: 
                 break;

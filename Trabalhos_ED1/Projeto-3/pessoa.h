@@ -18,7 +18,6 @@ typedef struct _PESSOA_{
         int removePessoa(Sllist *l, int type); //RETORNA TRUE SE ENCONTROU E FALSE EM CASO CONTRARIO
         int searchPessoa(Sllist *l, int type); //RETORNA TRUE SE ENCONTROU E FALSE EM CASO CONTRARIO
         int showAll(Sllist *l); // RETORNA TRUE SE PERCORREU A LISTA SEM PROBLEMAS E FALSE EM CASO CONTRÁRIO
-        int freeAll(Sllist *l); //RETORNA TRUE SE O COFO FOI ESVAZIADO COM SUCESSO, FALSE EM CASO CONTRARIO, OU SE O COFO JÁ ESTAVA VAZIO
     #else 
         extern int cmpNomePessoa(void *a, void *b); //RETORNA TRUE SE OS CPFS FOREM IGUAIS E FALSO EM CASO CONTRÁRIO
         extern int cmpCpfPessoa(void *a, void *b); //RETORNA TRUE SE OS NOMES FOREM IGUAIS E FALSE EM CASO CONTRÁRIO
@@ -26,6 +25,5 @@ typedef struct _PESSOA_{
         extern int removePessoa(Sllist *l, int type); //RETORNA TRUE SE ENCONTROU E FALSE EM CASO CONTRARIO
         extern int searchPessoa(Sllist *l, int type); //RETORNA TRUE SE ENCONTROU E FALSE EM CASO CONTRARIO
         extern int showAll(Sllist *l); // RETORNA TRUE SE PERCORREU A LISTA SEM PROBLEMAS E FALSE EM CASO CONTRÁRIO
-        extern int freeAll(Sllist *l); //RETORNA TRUE SE O COFO FOI ESVAZIADO COM SUCESSO, FALSE EM CASO CONTRARIO, OU SE O COFO JÁ ESTAVA VAZIO
     #endif
 #endif

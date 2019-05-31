@@ -15,9 +15,11 @@ Sllist *sllCreate(){
 }
 
 int sllDestroy(Sllist *l){
-    if(l->first==NULL){
-        free(l);
-        return true;
+    if(l!=NULL){
+      if(l->first == NULL){
+          free(l);
+          return true;
+      }
     }
     return false;
 }
@@ -61,21 +63,6 @@ int sllInsertLast(Sllist *l, void *elm){
     return false;
 }
 
-void *sllRemoveFirst(Sllist *l){
-    Sllnode *aux;
-    void *data;
-    if(l!=NULL){
-        if(l->first!=NULL){
-            aux = l->first;
-            l->first = aux->next;
-            data = aux->data;
-            free(aux);
-            return data;
-        }
-    }
-    return NULL;
-}
-
 int sllNumNodes(Sllist *l){
 
   Sllnode *aux;
@@ -102,32 +89,32 @@ void *sllQuery(Sllist *l, void *key, int(*cmp)(void*, void*)){
   int stat;
   int n = 0;
   if (l != NULL){
-    current = l->first;
-    stat = cmp(key, current->data);
-    while (stat != true && current != NULL){
-       printf("%d \n", n);
-       n++;
-       current = current->next;
-    }
+    if(l->first!=NULL){
+      current = l->first;
+      stat = cmp(key, current->data);
+      while (stat != true && current != NULL){
+        current = current->next;
+        stat = cmp(key, current->data);
+      }
 
-    if (stat == true){
-      return current->data;
+      if (stat == true){
+        return current->data;
+      }
     }
-
   }
   return NULL;
 }
 
-void *sllRemove(Sllist *list, void *key, int(*cmp)(void*, void*)){
+void *sllRemove(Sllist *l, void *key, int(*cmp)(void*, void*)){
 
   Sllnode *current;
   Sllnode *previous;
   void *data;
   int stat;
 
-  if (list != NULL){
-    if (list->first != NULL){
-      current = list->first;
+  if (l != NULL){
+    if (l->first != NULL){
+      current = l->first;
       previous = NULL;
       stat = cmp(key, current->data);    
       while ( stat != true && current!= NULL){
@@ -140,7 +127,7 @@ void *sllRemove(Sllist *list, void *key, int(*cmp)(void*, void*)){
         if (previous != NULL){
           previous->next = current->next;
         } else {
-          list->first = current->next;
+          l->first = current->next;
         }
 
         data = current->data;
