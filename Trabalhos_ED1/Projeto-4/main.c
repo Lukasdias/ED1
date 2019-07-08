@@ -65,7 +65,6 @@ int main(int argc, char const *argv[]) {
     switch (menuOption) {
 
       case 1:
-
         root = BSTreeCreate();
         if (root != NULL){
           printf("%s\n", "Arvore criada com sucesso");
@@ -80,7 +79,6 @@ int main(int argc, char const *argv[]) {
         printf("%s\n", "Insira um inteiro para ser adicionado");
         scanf("%d", &data);
         root = BSTreeInsert(root, (void*)data, (void*)data, cmp);
-
         if (root != NULL){
           printf("%s\n", "Elemento inserido com sucesso");
           system("pause");
@@ -90,13 +88,9 @@ int main(int argc, char const *argv[]) {
         }
         break;
       case 3:
-
         printf("%s\n", "Insira o elemento que voce deseja procurar: ");
-
         scanf("%d", &data);
-
         query = BSTreeQuery(root, (void*)data, cmp);
-
         if (query!=NULL){
           printf("%d foi removido", data);
           system("pause");
@@ -105,14 +99,10 @@ int main(int argc, char const *argv[]) {
           printf("%s\n", "Nao foi encontrado");
 
         }
-
         break;
       case 4:
-
         printf("%s\n", "Insira o elemnto que deseja deletar: ");
-
         scanf("%d", &data);
-
         root = BSTreeRemove(root, (void*)data, cmp);
         if(root!=NULL){
           printf("Numero %d encontrado e removido\n", data);
