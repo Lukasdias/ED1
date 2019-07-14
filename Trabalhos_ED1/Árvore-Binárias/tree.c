@@ -4,18 +4,19 @@
 #include <stdlib.h>
 #include "tree.h"
 
-Node* BSTreeCreate(){
-  Node *root;
-  root = (Node*)malloc(sizeof(Node));
+Tnode* ABPCreate(){
+  Tnode *root;
+  root = (Tnode*)malloc(sizeof(Tnode));
   if (root != NULL){
     root->left = NULL;
     root->right = NULL;
+    root->data = NULL;
     return root;
   }
   return NULL;
 }
 
-int BSTreeDestroy(Node *root){
+int ABPDestroy(Tnode *root){
   if (root->left == NULL && root->right == NULL){
     free(root);
     return true;
@@ -24,43 +25,45 @@ int BSTreeDestroy(Node *root){
   }
 }
 
-Node *BSTreeInsert(Node *root, void *data, void* key, int(*cmp)(void*, void*)){
-  Node *newnode;
+Tnode *ABPInsert(Tnode *root, void *data, void* key, int(*cmp)(void*, void*)){
+  Tnode *newTnode;
   
   if (root != NULL){
-    if (cmp(key, root->data) < 0){
-      root->left = BSTreeInsert(root->left, data, key, cmp);
-    } else {
-      root->right = BSTreeInsert(root->right, data, key, cmp);
+    int stat = cmp(key, root->data);
+    if (stat<0){
+      root->left = ABPInsert(root->left, data, key, cmp);
+    }else{
+      root->right = ABPInsert(root->right, data, key, cmp);
     }
     return root;
   } else {
-    newnode = (Node*)malloc(sizeof(Node));
-    if (newnode != NULL){
-      newnode->left = NULL;
-      newnode->right = NULL;
-      newnode->data = data;
-      return newnode;
+    newTnode = (Tnode*)malloc(sizeof(Tnode));
+    if (newTnode != NULL){
+      newTnode->data = data;
+      newTnode->left = NULL;
+      newTnode->right = NULL;
+      return newTnode;
     }
     return NULL;
   }
 
 }
 
-void *BSTreeQuery(Node* root, void* key, int(*cmp)(void*, void*)){
+void *ABPQuery(Tnode* root, void* key, int(*cmp)(void*, void*)){
   if (root != NULL){
-    if (cmp(key, root->data) == 0){
+    int stat = cmp(key, root->data); 
+    if (stat == 0){
       return root->data;
-    } else if (cmp(key, root->data) < 0){
-      return BSTreeQuery(root->left, key, cmp);
+    } else if (stat <= 0){
+      return ABPQuery(root->left, key, cmp);
     } else {
-      return BSTreeQuery(root->right, key, cmp);
+      return ABPQuery(root->right, key, cmp);
     }
   }
   return NULL;
 }
 
-void *BSTreeBigger(Node *root){
+void *ABPBigger(Tnode *root){
   void *data;
   if (root != NULL){
     while (root->right != NULL){
@@ -72,17 +75,18 @@ void *BSTreeBigger(Node *root){
   return NULL;
 }
 
-Node *BSTreeRemove(Node *root, void *key, int(*cmp)(void*, void*)){
-  Node *aux;
+Tnode *ABPRemove(Tnode *root, void *key, int(*cmp)(void*, void*)){
+  Tnode *aux;
   void *data;
+
   if (root != NULL){
     if (cmp(key, root->data) == -1){
-      root->left = BSTreeRemove(root->left, key, cmp);
+      root->left = ABPRemove(root->left, key, cmp);
       return root;
-    }else if (cmp(key, root->data) == 1){
-      root->right = BSTreeRemove(root->right, key, cmp);
+    } else if (cmp(key, root->data) == 1){
+      root->right = ABPRemove(root->right, key, cmp);
       return root;
-    }else {
+    } else {
       data = root->data;
       if (root->left == NULL && root->right == NULL){
         free(root);
@@ -96,17 +100,17 @@ Node *BSTreeRemove(Node *root, void *key, int(*cmp)(void*, void*)){
         free(root);
         return aux;
       } else {
-        root->data = BSTreeBigger(root->left);
-        BSTreeRemove(root->left, root->data, cmp);
+        root->data = ABPBigger(root->left);
+        ABPRemove(root->left, root->data, cmp);
         return root;
       }
     }
   }
-
+  
   return NULL;
 }
 
-void treePreOrdem(Node *root, void(*visit)(void*)){
+void treePreOrdem(Tnode *root, void(*visit)(void*)){
 
   if (root != NULL){
 
@@ -118,7 +122,7 @@ void treePreOrdem(Node *root, void(*visit)(void*)){
 
 }
 
-void treePosOrdem(Node *root, void(*visit)(void*)){
+void treePosOrdem(Tnode *root, void(*visit)(void*)){
   if (root != NULL){
     treePosOrdem(root->left, visit);
     treePosOrdem(root->right, visit);
@@ -127,19 +131,19 @@ void treePosOrdem(Node *root, void(*visit)(void*)){
 
 }
 
-void treeSimetria(Node *root, void(*visit)(void*)){
+void treeSimetria(Tnode *root, void(*visit)(void*)){
   if (root != NULL){
-    treePosOrdem(root->left, visit);
+    treeSimetria(root->left, visit);
     visit(root->data);
-    treePosOrdem(root->right, visit);
+    treeSimetria(root->right, visit);
   }
 }
 
-int BSTreeContaNo(Node *root){
-  int nL, nR;
+int ABPContaNo(Tnode *root){
+  int nL=0, nR=0;
   if(root!=NULL){
-    nL = BSTreeContaNo(root->left);
-    nR = BSTreeContaNo(root->right);
+    nL = ABPContaNo(root->left);
+    nR = ABPContaNo(root->right);
     return 1 + nL + nR;
   }
   return 0;
