@@ -148,3 +148,59 @@ int ABPContaNo(Tnode *root){
   }
   return 0;
 }
+
+void TnodeLiberaNo(Tnode *t){
+  if(t == NULL){
+    return;
+  }
+  TnodeLiberaNo(t->left);
+  TnodeLiberaNo(t->right);
+  free(t);
+  t = NULL;
+}
+
+void TnodeLiberaRaiz(Tnode *t){
+  if(t == NULL){
+    return;
+  }
+  TnodeLiberaNo(&(*t));
+  free(t);
+}
+
+int TnodeAltura(Tnode *t){
+  if(t!=NULL){
+    
+    if(t->left == NULL && t->right == NULL){
+      return 0;
+    }
+
+    int alt_esq = TnodeAltura(t->left);
+    int alt_dir = TnodeAltura(t->right);
+    
+    if(alt_esq > alt_dir){
+      return(alt_esq);
+    }else{
+      return (alt_dir);
+    }
+  }
+
+  return 0;
+}
+
+int numMaiores(Tnode *t, int n, void(*visit)(void*), int(*cmp)(void*, void*)){
+  
+  if(t!=NULL){
+    
+    // visit(root->data);
+    int mEsq, mDir, comp = 0;
+    mEsq = numMaiores(t->left, n, visit, cmp);
+    mDir = numMaiores(t->right, n, visit, cmp);
+    if(cmp( (void*)n, t->data ) == -1){
+      comp = 1;
+    }else{
+      comp = 0;
+    }
+    return comp + mDir + mEsq;
+  }
+  return 0;
+}

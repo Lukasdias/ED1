@@ -20,6 +20,8 @@ typedef struct _treeTnode_{
         void treeSimetria(Tnode *root, void(*visit)(void*));
         int ABPContaNo(Tnode *t);
         int ABPContaOneSon(Tnode *root);
+        int TnodeAltura(Tnode *t);
+        int numMaiores(Tnode *t, int n, void(*visit)(void*), int(*cmp)(void*, void*));
     #else
         extern Tnode* ABPCreate();
         extern int ABPDestroy(Tnode *root);
@@ -32,5 +34,8 @@ typedef struct _treeTnode_{
         extern void treeSimetria(Tnode *root, void(*visit)(void*));
         extern int ABPContaNo(Tnode *t);
         extern int ABPContaOneSon(Tnode *root);
+        extern int TnodeAltura(Tnode *t);
+        extern int numMaiores(Tnode *t, int n, void(*visit)(void*), int(*cmp)(void*, void*));
+
     #endif
 #endif
